@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  migrate:
+    build: 
+      context: ./docker/migrate
+    volumes:
+      - ${DB_MIGRATIONS}:/migrations
+      - ${DB_DIR}:/db
+    entrypoint: ["migrate", "-path=/migrations/", "-database", "sqlite3:///${DB_PATH}"]
+    profiles:
+      - job
