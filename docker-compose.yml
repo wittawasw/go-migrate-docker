@@ -3,6 +3,8 @@ version: '3.8'
 services:
   migrate:
     build: 
+      # A standard release doesn't have sqlite3 driver. So, we have to install from 
+      # source with sqlite3 tag.
       context: ./docker/migrate
     volumes:
       - ${DB_MIGRATIONS}:/migrations
