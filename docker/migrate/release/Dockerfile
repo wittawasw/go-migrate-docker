@@ -11,7 +11,5 @@ RUN wget -O /tmp/migrate.tar.gz https://github.com/golang-migrate/migrate/releas
 # Clean up
 RUN rm -rf /tmp/*
 
-# CMD ["migrate", "--version"]
-
 ENTRYPOINT ["migrate"]
 CMD ["--help"]
