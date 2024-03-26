@@ -9,3 +9,5 @@ DB_DIR=./db
 DB_PATH=db/dev.sqlite
 DB_MIGRATIONS=./db/migrations
 ```
+
+https://atlasgo.io/guides/migration-tools/golang-migrate
