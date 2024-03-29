@@ -25,7 +25,6 @@ services:
 
   atlas:
     image: arigaio/atlas:0.20.0
-    # command: migrate apply --url "${DATABASE_URL}"
     volumes:
       - ${DB_MIGRATIONS}:/migrations
     profiles:
@@ -33,12 +32,13 @@ services:
 
   postgresql:
     image: docker.io/bitnami/postgresql:16
-    # ports:
-    #   - '5432:5432'
+    ports:
+      - '${EXPOSED_DB_PORT}:5432'
     volumes:
       - ./tmp/data/postgresql:/bitnami/postgresql
     environment:
       # - ALLOW_EMPTY_PASSWORD=yes
       - POSTGRESQL_USERNAME=${PG_USERNAME}
       - POSTGRESQL_PASSWORD=${PG_PASSWORD}
-      - POSTGRESQL_URL=${PG_URL}
+      - POSTGRESQL_DATABASE=${PG_DBNAME}
+      # - POSTGRESQL_URL=${PG_URL}
