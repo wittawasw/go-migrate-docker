@@ -1,6 +1,6 @@
 env "local" {
-  src = "file://schema.sql"
-  dev = "docker://mysql/8/dev"
+  src = "file://db/schema.sql"
+  dev = "docker://postgresql/15/dev"
 
   migration {
     dir    = "file://migrations"
