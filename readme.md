@@ -27,5 +27,6 @@ docker compose run atlas
 docker compose run atlas migrate hash
 docker compose run atlas schema inspect -u "postgres://admin:password@postgresql:5432/example?sslmode=disable" > db/schema.hcl
 docker compose run atlas schema inspect -u "postgres://admin:password@postgresql:5432/example?sslmode=disable" --format "{{ sql . \"  \" }}" > db/schema.sql
+docker compose run atlas migrate diff new_columns -to
 
 ```
