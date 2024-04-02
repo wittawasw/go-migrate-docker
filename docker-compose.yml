@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   migrate:
-    build: 
-      # A standard release doesn't have sqlite3 driver. So, we have to install from 
+    build:
+      # A standard release doesn't have sqlite3 driver. So, we have to install from
       # source with sqlite3 tag.
       context: ./docker/migrate
     volumes:
@@ -12,9 +12,9 @@ services:
     entrypoint: ["migrate", "-path=/migrations/", "-database", "sqlite3:///${DB_PATH}"]
     profiles:
       - job
-  
+
   migratepg:
-    build: 
+    build:
       context: ./docker/migrate/release
     volumes:
       - ${DB_MIGRATIONS}:/migrations
@@ -23,14 +23,22 @@ services:
     profiles:
       - job
 
+  atlas:
+    image: arigaio/atlas:0.20.0
+    volumes:
+      - ${DB_MIGRATIONS}:/migrations
+    profiles:
+      - job
+
   postgresql:
     image: docker.io/bitnami/postgresql:16
-    # ports:
-    #   - '5432:5432'
+    ports:
+      - '${EXPOSED_DB_PORT}:5432'
     volumes:
       - ./tmp/data/postgresql:/bitnami/postgresql
     environment:
       # - ALLOW_EMPTY_PASSWORD=yes
       - POSTGRESQL_USERNAME=${PG_USERNAME}
       - POSTGRESQL_PASSWORD=${PG_PASSWORD}
-      - POSTGRESQL_URL=${PG_URL}
+      - POSTGRESQL_DATABASE=${PG_DBNAME}
+      # - POSTGRESQL_URL=${PG_URL}

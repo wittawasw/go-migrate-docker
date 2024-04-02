@@ -1,1 +1,3 @@
-DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS accountant.accounts;
+
+DROP SCHEMA accountant;
